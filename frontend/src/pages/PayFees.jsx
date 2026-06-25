@@ -111,7 +111,7 @@ export default function PayFees() {
 
     try {
       setVerifying(true);
-      await verifyAuctionPayment(routeId, payment._id || payment.paymentId, { upiAccountName: payerName || ctxUser?.username || ctxUser?.fullname || '', upiTxnId: txnId });
+      await verifyAuctionPayment(routeId, payment._id || payment.paymentId, { upiAccountName: payerName || ctxUser?.name || '', upiTxnId: txnId });
       toast.info('Verification requested — admin will verify shortly');
       navigate(`/auction/${routeId}`);
     } catch (err) {
@@ -217,7 +217,7 @@ export default function PayFees() {
                   </div>
                   <div className="mt-2">
                     <label className="text-sm block mb-1">Payer Name (optional)</label>
-                    <input value={payerName} onChange={(e) => setPayerName(e.target.value)} className="w-full p-2 border rounded" placeholder={ctxUser?.username || ctxUser?.fullname || ''} />
+                    <input value={payerName} onChange={(e) => setPayerName(e.target.value)} className="w-full p-2 border rounded" placeholder={ctxUser?.name || ''} />
                   </div>
                   <div className="mt-4">
                     <button onClick={submitVerification} disabled={verifying || !txnId} className={`px-4 py-2 rounded text-white ${verifying || !txnId ? 'bg-gray-400' : 'bg-green-600 hover:bg-green-700'}`}>

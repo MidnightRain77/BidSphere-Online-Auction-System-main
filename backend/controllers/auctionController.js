@@ -108,7 +108,7 @@ async function createAuction(req, res) {
     await logAuctionEvent({
       auctionId: auction._id,
       userId: auctionOwner._id,
-      userName: auctionOwner.username,
+      userName: auctionOwner.name,
       type: "AUCTION_CREATED",
       details: {
         itemName: name,
@@ -179,8 +179,8 @@ async function getAuctionById(req, res) {
     }
 
     const auction=await Auction.findById(auctionId)
-      .populate("createdBy", "username email")
-      .populate("currentWinner", "username email")
+      .populate("createdBy", "name email")
+      .populate("currentWinner", "name email")
       .lean();
 
     if (!auction) {
@@ -208,7 +208,7 @@ async function getAuctionById(req, res) {
       .sort({amount: -1 })
       .limit(10)// top 10 bids fetched rn
       .select("userId amount createdAt")
-      .populate("userId", "username email")
+      .populate("userId", "name email")
       .lean();
 
     const allBids = await Bid.find({auctionId: auction._id}).select("userId").lean();
@@ -266,7 +266,7 @@ async function listAuctions(req, res) {
       .limit(Number(limit))
       // 3. Added "item.condition" here so your frontend receives the data
       .select("title item.name item.condition item.images startTime endTime currentBid status startingPrice totalBids")
-      .populate("createdBy", "username")
+      .populate("createdBy", "name")
       .lean();
 
     const total = await Auction.countDocuments(filter);
@@ -354,7 +354,7 @@ async function editAuction(req, res) {
     await logAuctionEvent({
       auctionId: updatedAuction._id,
       userId: auctionOwner._id,
-      userName: auctionOwner.username,
+      userName: auctionOwner.name,
       type: "AUCTION_UPDATED",
       details: {
         updatedFields: Object.keys(updates),
@@ -396,7 +396,7 @@ async function deleteAuction(req, res) {
     await logAuctionEvent({
       auctionId: auction._id,
       userId: auctionOwner._id,
-      userName: auctionOwner.username,
+      userName: auctionOwner.name,
       type: "AUCTION_DELETED",
       details: {
         deletedAt: new Date(),

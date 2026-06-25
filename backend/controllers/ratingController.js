@@ -89,7 +89,7 @@ export const getSellerRatings = async (req, res) => {
             : { sellerId };
 
         const ratings = await Rating.find(query)
-            .populate("raterId", "username profilePhoto")
+            .populate("raterId", "name profilePhoto")
             .populate("auctionId", "title")
             .sort({ createdAt: -1 })
             .lean();

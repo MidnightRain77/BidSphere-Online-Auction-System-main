@@ -87,7 +87,7 @@ export default function SellerRating({ sellerId, limit = 5, currentUserId }) {
             return (
               <div key={r._id || (r.raterId && r.raterId._id) || Math.random()} className="mt-3 border-t pt-3">
                 <div className="flex items-center justify-between">
-                  <div className="text-sm font-medium">{r.raterId?.username || r.raterId?.name || (r.raterId?.email || "").split("@")[0] || "Anonymous"}</div>
+                  <div className="text-sm font-medium">{r.raterId?.name || (r.raterId?.email || "").split("@")[0] || "Anonymous"}</div>
                   <div className="flex items-center gap-2">
                     <div className="text-xs text-gray-500">{new Date(r.createdAt).toLocaleDateString()}</div>
                   </div>

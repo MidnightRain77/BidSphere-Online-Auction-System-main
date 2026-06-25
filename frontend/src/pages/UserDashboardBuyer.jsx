@@ -119,7 +119,7 @@ export default function UserDashboardBuyer() {
     return () => (mounted = false);
   }, []);
 
-  const displayName = (user && (user.username || user.name || user.email || user.fullname)) || "First Last";
+  const displayName = (user && (user.name || user.email)) || "First Last";
   const initials = String(displayName).split(" ").map((s) => s[0] || "").slice(0, 2).join("").toUpperCase();
 
   

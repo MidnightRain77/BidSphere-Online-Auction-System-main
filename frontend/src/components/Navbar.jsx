@@ -59,7 +59,7 @@ function Navbar() {
   // derive user image and initials for avatar display (defensive: only treat `user` as object)
   const userObj = (user && typeof user === 'object') ? user : null;
   const userImage = userObj?.profilePhoto || userObj?.profilePhotoUrl || userObj?.avatar || userObj?.profilePicture || null;
-  const userHandle = (userObj?.username || userObj?.email || '').toString().trim();
+  const userHandle = (userObj?.name || userObj?.email || '').toString().trim();
   const userInitials = (userHandle ? userHandle : 'U')
     .split(' ')
     .map(s => s[0])
@@ -226,17 +226,17 @@ function Navbar() {
               aria-expanded={showMenu}
             >
               {userImage ? (
-                <img src={userImage} alt={user.username || 'User'} className="w-8 h-8 rounded-full object-cover" />
+                <img src={userImage} alt={user.name || 'User'} className="w-8 h-8 rounded-full object-cover" />
               ) : (
                 <div className="w-8 h-8 rounded-full bg-blue-600 text-white flex items-center justify-center font-semibold">{userInitials}</div>
               )}
-              <span className="hidden sm:inline">{user.username || (user.email || '').split('@')[0]}</span>
+              <span className="hidden sm:inline">{user.name || (user.email || '').split('@')[0]}</span>
             </button>
 
             {showMenu && (
               <div className="absolute right-0 mt-2 w-56 bg-white rounded shadow-lg z-50 border">
                 <div className="px-4 py-3 border-b">
-                  <div className="font-semibold">{user.username || (user.email || '').split('@')[0]}</div>
+                  <div className="font-semibold">{user.name || (user.email || '').split('@')[0]}</div>
                   <div className="text-xs text-gray-500">Account</div>
                 </div>
                 <ul className="py-2">

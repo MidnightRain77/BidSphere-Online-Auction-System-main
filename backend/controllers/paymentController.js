@@ -117,7 +117,7 @@ export const handleWinningCodPayment = async (req, res) => {
     })
 
     // send mail
-    SendCODSelectedEmail(user.email, user.username, auction.title )
+    SendCODSelectedEmail(user.email, user.name, auction.title )
 
     return res.status(200).json(payment);
   } catch (err) {
@@ -173,7 +173,7 @@ export const handleWinningUpiPayment = async (req, res) => {
     })
     
     // send mail to user
-    SendUPISelectedEmail(user.email, user.username, upiLink, auction.winningPrice);
+    SendUPISelectedEmail(user.email, user.name, upiLink, auction.winningPrice);
     
     return res.status(200).json(payment);
   } catch (err) {
@@ -218,7 +218,7 @@ export const verifyPayment = async (req, res) => {
     const reqFor = payment.type;
 
     // send mail
-    SendPaymentVerificationRequestSent (user.email, user.username, auction.title, reqFor);
+    SendPaymentVerificationRequestSent (user.email, user.name, auction.title, reqFor);
 
     return res.status(200).json({ success: true, message: "Your payment verification request sent"});
   } catch (err) {

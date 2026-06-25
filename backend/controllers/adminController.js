@@ -88,8 +88,8 @@ async function getAllAuctions(req, res) {
       .sort(sort)
       .skip(skip)
       .limit(Number(limit))
-      .populate("createdBy", "username email")
-      .populate("currentWinner", "username email")
+      .populate("createdBy", "name email")
+      .populate("currentWinner", "name email")
       .lean();
 
     const total = await Auction.countDocuments(filter);
@@ -123,8 +123,8 @@ async function getAuctionDetails(req, res) {
     }
 
     const auction = await Auction.findById(auctionId)
-      .populate("createdBy", "username email")
-      .populate("currentWinner", "username email")
+      .populate("createdBy", "name email")
+      .populate("currentWinner", "name email")
       .lean();
 
     if (!auction) {
@@ -178,8 +178,8 @@ async function verifyAuction(req, res) {
     auction.status = newStatus;
 
     await auction.save();
-    await auction.populate("createdBy", "username email");
-    await auction.populate("currentWinner", "username email");
+    await auction.populate("createdBy", "name email");
+    await auction.populate("currentWinner", "name email");
 
     const responseAuction = auction.toObject();
 
@@ -226,8 +226,8 @@ async function removeAuction(req, res) {
     auction.status = "REMOVED";
 
     await auction.save();
-    await auction.populate("createdBy", "username email");
-    await auction.populate("currentWinner", "username email");
+    await auction.populate("createdBy", "name email");
+    await auction.populate("currentWinner", "name email");
 
     const responseAuction = auction.toObject();
 
@@ -253,7 +253,7 @@ async function getNotifications(req, res) {
       .sort({ createdAt: -1 })
       .populate('payment')
       .populate('auctionId', 'title')
-      .populate('userId', 'username email')
+      .populate('userId', 'name email')
       .lean();
 
     return res.status(200).json({ success: true, notifications: notifs });

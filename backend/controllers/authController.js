@@ -8,22 +8,44 @@ import { SendVerificationCode, WelcomeEmail, SendResetPwdEmail } from "../servic
 
 async function handleRegister (req, res) {
   try {
-    const { username, email, password} = req.body;
-    if (!username || !email || !password) {
-      return res.status(400).json({ message: "All fields are Required" });
+    const { name, email, password} = req.body;
+    const fullname = name || req.body.fullname;
+
+    // Individual field validations
+    if (!fullname) {
+      return res.status(400).json({ message: "Your Name is required" });
+    }
+    if (!email) {
+      return res.status(400).json({ message: "Email is required" });
+    }
+    if (!password) {
+      return res.status(400).json({ message: "Password is required" });
     }
 
-    // Check if user already exists
-    const existingUser = await User.findOne({ email });
-    if (existingUser) {
-      return res.status(400).json({ message: "User already exists" });
+    // Name check: must have first and last name
+    const trimmedName = fullname.trim();
+    const nameParts = trimmedName.split(/\s+/);
+    if (nameParts.length < 2) {
+      return res.status(400).json({ message: "Please enter both your first name and last name" });
+    }
+
+    // Check allowed characters: letters, spaces, hyphens, and apostrophes
+    const nameRegex = /^[a-zA-Z\s'-]+$/;
+    if (!nameRegex.test(trimmedName)) {
+      return res.status(400).json({ message: "Name can only contain letters, spaces, hyphens, and apostrophes" });
+    }
+
+    // Check if email already exists
+    const existingEmail = await User.findOne({ email });
+    if (existingEmail) {
+      return res.status(400).json({ message: "Email is already registered" });
     }
 
     const hashedPassword = await generateHashPassword(password);
     const verificationCode = Math.floor(100000 + Math.random() *900000).toString();
 
-    User.create({
-      username,
+    await User.create({
+      name: trimmedName,
       email,
       password: hashedPassword,
       verificationCode
@@ -76,7 +98,7 @@ async function handleLogin (req, res) {
     path: "/",
   });
   
-    return res.json({ message: "Login successful", token, user: { username: user.username, email: user.email } });
+    return res.json({ message: "Login successful", token, user: { name: user.name, email: user.email } });
   }
    catch (err) {
     console.error("user login error:", err);
@@ -115,7 +137,7 @@ async function verifyEmail (req, res) {
     user.verificationCode = undefined;
     await user.save();
 
-    WelcomeEmail(user.email, user.username);
+    WelcomeEmail(user.email, user.name);
     return res.status(200).json({ message: "Email Verified Successfully" })
   }
   catch(err){
@@ -137,9 +159,8 @@ async function getCurrentUser(req, res) {
     // Normalize fields for frontend consumption
     const publicUser = {
       _id: fullUser._id,
-      username: fullUser.username,
+      name: fullUser.name,
       email: fullUser.email,
-      fullname: fullUser.fullname || '',
       bio: fullUser.bio || '',
       address: fullUser.address || null,
       profilePhoto: fullUser.profilePhoto || null,

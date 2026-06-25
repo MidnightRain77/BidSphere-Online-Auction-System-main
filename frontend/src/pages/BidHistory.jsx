@@ -114,8 +114,7 @@ function BidHistory() {
                   <tbody>
                     {allBids.map((bid, i) => {
                       const bidderData = bid?.userId || bid?.bidderId;
-                      const bidderName = bidderData?.username || 
-                                        bidderData?.name || 
+                      const bidderName = bidderData?.name || 
                                         (bidderData?.email || "").split("@")[0] || 
                                         "Anonymous";
                       

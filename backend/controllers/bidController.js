@@ -61,7 +61,7 @@ export const placeBid = async (req, res) => {
     await logAuctionEvent({
       auctionId,
       userId: bidder._id,
-      userName: bidder.username,
+      userName: bidder.name,
       type: "BID_PLACED",
       details: { amount: amount, method: "manual" }
     });

@@ -383,7 +383,7 @@ function AdminDashboard() {
                           </td>
                           <td className="px-4 py-2 whitespace-nowrap">
                             <div className="text-sm text-gray-900">
-                              {auction.createdBy?.username || auction.createdBy?.email || "N/A"}
+                              {auction.createdBy?.name || auction.createdBy?.email || "N/A"}
                             </div>
                             <div className="text-xs text-gray-500">
                               {auction.createdBy?.email || ""}
@@ -405,7 +405,7 @@ function AdminDashboard() {
                             ₹{getTopBid(auction).toLocaleString()}
                             {auction.currentWinner && (
                               <div className="text-xs text-gray-500">
-                                Winner: {auction.currentWinner?.username || auction.currentWinner?.email || "N/A"}
+                                Winner: {auction.currentWinner?.name || auction.currentWinner?.email || "N/A"}
                               </div>
                             )}
                           </td>
@@ -461,7 +461,7 @@ function AdminDashboard() {
                           <div className="text-sm text-gray-600">Payment ID: <span className="font-mono text-xs">{n.payment?._id || n._id}</span></div>
                           <div className="text-lg font-semibold text-gray-900">Amount: ₹{(n.payment?.amount != null) ? Number(n.payment.amount).toLocaleString() : (n.payment?.amount || 'N/A')}</div>
                           <div className="text-sm text-gray-600">Auction: {n.auctionId?.title || n.auctionId || 'N/A'}</div>
-                          <div className="text-sm text-gray-600">Bidder: {n.userId?.username || n.userId?.email || n.userId || 'N/A'}</div>
+                          <div className="text-sm text-gray-600">Bidder: {n.userId?.name || n.userId?.email || n.userId || 'N/A'}</div>
                           <div className="text-xs text-gray-500">Requested: {new Date(n.createdAt).toLocaleString()}</div>
                         </div>
                         <div className="flex flex-col items-end gap-2">
@@ -516,12 +516,12 @@ function AdminDashboard() {
                         </div>
                         <div>
                           <div className="text-sm text-gray-600">Seller</div>
-                          <div className="font-semibold">{d.sellerId?.username || d.sellerId?.email || d.sellerId?._id || 'N/A'}</div>
+                          <div className="font-semibold">{d.sellerId?.name || d.sellerId?.email || d.sellerId?._id || 'N/A'}</div>
                           <div className="text-xs text-gray-500">{d.sellerId?.email || ''}</div>
                         </div>
                         <div>
                           <div className="text-sm text-gray-600">Buyer (Winner)</div>
-                          <div className="font-semibold">{d.buyerId?.username || d.buyerId?.email || d.buyerId?._id || 'N/A'}</div>
+                          <div className="font-semibold">{d.buyerId?.name || d.buyerId?.email || d.buyerId?._id || 'N/A'}</div>
                           <div className="text-xs text-gray-500">{d.buyerId?.email || ''}</div>
                         </div>
                       </div>
@@ -649,7 +649,7 @@ function AdminDashboard() {
                       <h3 className="text-sm font-medium text-gray-500">Current Top Bid</h3>
                       <p className="text-xl font-semibold text-gray-900">₹{getTopBid(selectedAuction).toLocaleString()}</p>
                       {selectedAuction.currentWinner && (
-                        <div className="mt-2 text-sm text-gray-600">Top bidder: {selectedAuction.currentWinner?.username || selectedAuction.currentWinner?.email || 'N/A'}</div>
+                        <div className="mt-2 text-sm text-gray-600">Top bidder: {selectedAuction.currentWinner?.name || selectedAuction.currentWinner?.email || 'N/A'}</div>
                       )}
                     </div>
                     {selectedAuction.buyItNowPrice && (
@@ -676,7 +676,7 @@ function AdminDashboard() {
                   <div>
                     <h3 className="text-sm font-medium text-gray-500 mb-2">Created By</h3>
                     <p className="text-gray-900">
-                      {selectedAuction.createdBy?.username || selectedAuction.createdBy?.email || "N/A"}
+                      {selectedAuction.createdBy?.name || selectedAuction.createdBy?.email || "N/A"}
                       {selectedAuction.createdBy?.email && (
                         <span className="text-gray-500 ml-2">({selectedAuction.createdBy.email})</span>
                       )}
@@ -697,7 +697,7 @@ function AdminDashboard() {
                       <div>
                         <h3 className="text-sm font-medium text-gray-500">Current Winner</h3>
                         <p className="text-gray-900">
-                          {selectedAuction.currentWinner?.username || selectedAuction.currentWinner?.email || "N/A"}
+                          {selectedAuction.currentWinner?.name || selectedAuction.currentWinner?.email || "N/A"}
                         </p>
                       </div>
                     )}

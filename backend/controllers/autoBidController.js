@@ -33,7 +33,7 @@ export const setAutoBid = async (req, res) => {
     await logAuctionEvent({
       auctionId,
       userId: bidder._id,
-      userName: bidder.username,
+      userName: bidder.name,
       type: "AUTO_BID_SET",
       details: { maxLimit, setAt: new Date() },
     });
@@ -102,7 +102,7 @@ export const editAutoBid = async (req, res) => {
     await logAuctionEvent({
       auctionId,
       userId: bidder._id,
-      userName: bidder.username,
+      userName: bidder.name,
       type: "AUTO_BID_UPDATED",
       details: { newLimit: newMaxLimit }, 
     });
@@ -158,7 +158,7 @@ export const activateAutoBid = async (req, res) => {
     await logAuctionEvent({
       auctionId,
       userId: bidder._id,
-      userName: bidder.username,
+      userName: bidder.name,
       type: "AUTO_BID_ACTIVATED",
       details: { activatedAt: new Date(), maxLimit: autobid.maxLimit },
     });
@@ -221,7 +221,7 @@ export const deactivateAutoBid = async (req, res) => {
     await logAuctionEvent({
       auctionId,
       userId: bidder._id,
-      userName: bidder.username,
+      userName: bidder.name,
       type: "AUTO_BID_DEACTIVATED",
       details: { deactivatedAt: new Date() },
     });

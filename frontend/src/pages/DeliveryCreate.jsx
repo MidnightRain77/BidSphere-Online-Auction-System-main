@@ -36,7 +36,7 @@ export default function DeliveryCreate() {
             setPostalCode(u.address.postalCode || '');
             setCountry(u.address.country || '');
           }
-          setName(u.fullname || u.username || '');
+          setName(u.name || '');
         }
 
         if (auctionId) {

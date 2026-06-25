@@ -80,7 +80,7 @@ export const handleAutoBids = async (auctionId) => {
       await logAuctionEvent({
         auctionId,
         userId: user._id,
-        userName: user.username,
+        userName: user.name,
         type: "AUTO_BID_TRIGGERED",
         details: { amount: nextBid },
       });

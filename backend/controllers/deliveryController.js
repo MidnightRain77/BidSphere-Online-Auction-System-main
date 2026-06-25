@@ -110,8 +110,8 @@ export const getMyDeliveries = async (req, res) => {
       $or: [{ buyerId: userId }, { sellerId: userId }]
     })
       .populate('auctionId', 'title item')
-      .populate('buyerId', 'username email')
-      .populate('sellerId', 'username email')
+      .populate('buyerId', 'name email')
+      .populate('sellerId', 'name email')
       .sort({ createdAt: -1 })
       .lean();
 
@@ -132,8 +132,8 @@ export const getAllDeliveries = async (req, res) => {
   try {
     const deliveries = await Delivery.find()
       .populate('auctionId', 'title item')
-      .populate('buyerId', 'username email address')
-      .populate('sellerId', 'username email address')
+      .populate('buyerId', 'name email address')
+      .populate('sellerId', 'name email address')
       .sort({ createdAt: -1 })
       .lean();
 

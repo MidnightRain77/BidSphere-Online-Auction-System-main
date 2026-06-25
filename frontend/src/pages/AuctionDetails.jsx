@@ -111,7 +111,7 @@ function AuctionDetails() {
       const s = auction?.createdBy;
       const sellerIdLocal = typeof s === 'string' ? s : (s?._id || s?.id || null);
       // if auction includes full seller object, use it
-      if (s && typeof s === 'object' && (s.username || s.name || s.email)) {
+      if (s && typeof s === 'object' && (s.name || s.email)) {
         setSellerInfo(s);
         return;
       }
@@ -504,7 +504,7 @@ function AuctionDetails() {
   let displaySellerName = 'Unknown';
   if (!effectiveSeller && typeof seller === 'string') displaySellerName = seller;
   else if (effectiveSeller) {
-    displaySellerName = effectiveSeller?.username || effectiveSeller?.name || effectiveSeller?.displayName || effectiveSeller?.fullName || (effectiveSeller?.email ? effectiveSeller.email.split("@")[0] : null) || `Seller${String(sellerId || '').slice(0,6)}`;
+    displaySellerName = effectiveSeller?.name || effectiveSeller?.displayName || effectiveSeller?.fullName || (effectiveSeller?.email ? effectiveSeller.email.split("@")[0] : null) || `Seller${String(sellerId || '').slice(0,6)}`;
   }
   // Prefer common profile photo field names if available
   const sellerImage = effectiveSeller?.profilePhoto || effectiveSeller?.profilePhotoUrl || effectiveSeller?.avatar || effectiveSeller?.profilePicture || null;
@@ -924,16 +924,16 @@ function AuctionDetails() {
                     {topBids[0].userId?.profilePhoto ? (
                       <img 
                         src={topBids[0].userId.profilePhoto} 
-                        alt={topBids[0].userId?.username || 'Winner'} 
+                        alt={topBids[0].userId?.name || 'Winner'} 
                         className="w-full h-full object-cover"
                       />
                     ) : (
-                      <span>{(topBids[0].userId?.username || topBids[0].userId?.name || 'W').slice(0,2).toUpperCase()}</span>
+                      <span>{(topBids[0].userId?.name || 'W').slice(0,2).toUpperCase()}</span>
                     )}
                   </div>
                   <div className="flex-1">
                     <div className="font-semibold text-gray-900">
-                      {topBids[0].userId?.username || topBids[0].userId?.name || topBids[0].userId?.email?.split('@')[0] || 'Winner'}
+                      {topBids[0].userId?.name || topBids[0].userId?.email?.split('@')[0] || 'Winner'}
                     </div>
                     <div className="text-sm text-gray-600 mt-1">
                       Winning Bid: ₹{(highestBid || topBids[0].amount || 0).toLocaleString()}
@@ -1171,7 +1171,7 @@ function AuctionDetails() {
                       } else if (typeof bidderData === 'string') {
                         bidderName = bidderData;
                       } else {
-                        bidderName = bidderData?.username || bidderData?.name || (bidderData?.email || "").split("@")[0] || "Anonymous";
+                        bidderName = bidderData?.name || (bidderData?.email || "").split("@")[0] || "Anonymous";
                       }
                        const isLeading = i === 0;
                        

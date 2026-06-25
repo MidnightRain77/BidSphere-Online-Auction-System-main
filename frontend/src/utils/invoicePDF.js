@@ -45,7 +45,7 @@ export function generateInvoicePDF(auctionData, userData, deliveryData) {
       <div style="display: flex; justify-content: space-between; margin-bottom: 15px;">
         <div style="width: 48%;">
           <h3 style="font-size: 12pt; font-weight: bold; margin-bottom: 8px; color: #000;">Bill To</h3>
-          <p style="margin: 3px 0; font-size: 9pt;"><strong>${userData?.fullname || userData?.username || 'Buyer'}</strong></p>
+          <p style="margin: 3px 0; font-size: 9pt;"><strong>${userData?.fullname || userData?.name || 'Buyer'}</strong></p>
           <p style="margin: 3px 0; font-size: 9pt;">${deliveryData?.street || 'N/A'}</p>
           <p style="margin: 3px 0; font-size: 9pt;">${deliveryData?.city || 'N/A'}, ${deliveryData?.state || 'N/A'} ${deliveryData?.postalCode || 'N/A'}</p>
           <p style="margin: 3px 0; font-size: 9pt;">${deliveryData?.country || 'N/A'}</p>
@@ -53,7 +53,7 @@ export function generateInvoicePDF(auctionData, userData, deliveryData) {
         </div>
         <div style="width: 48%;">
           <h3 style="font-size: 12pt; font-weight: bold; margin-bottom: 8px; color: #000;">Seller Information</h3>
-          <p style="margin: 3px 0; font-size: 9pt;"><strong>${auctionData.sellerId?.fullname || auctionData.sellerId?.username || 'Seller'}</strong></p>
+          <p style="margin: 3px 0; font-size: 9pt;"><strong>${auctionData.sellerId?.name || 'Seller'}</strong></p>
           <p style="margin: 3px 0; font-size: 9pt;">Email: ${auctionData.sellerId?.email || 'N/A'}</p>
           <p style="margin: 3px 0; font-size: 9pt;">Phone: ${auctionData.sellerId?.phone || 'N/A'}</p>
         </div>

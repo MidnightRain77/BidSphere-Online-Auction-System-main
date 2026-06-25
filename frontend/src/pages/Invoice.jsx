@@ -46,7 +46,7 @@ export default function InvoicePage() {
 
   const handleDownload = () => {
     const auctionData = auction || { title: 'Auction', item: {} };
-    const userData = { fullname: user?.fullname || user?.username || (user?.email || '').split('@')[0], email: user?.email, phone: user?.phone };
+    const userData = { fullname: user?.name || (user?.email || '').split('@')[0], email: user?.email, phone: user?.phone };
     const deliveryData = delivery?.buyerAddress || {};
     generateInvoicePDF(auctionData, userData, deliveryData);
   };
@@ -69,7 +69,7 @@ export default function InvoicePage() {
           </div>
 
           <div className="mb-4 text-sm text-gray-700">
-            <div><strong>Buyer:</strong> {user?.username || user?.email || 'Guest'}</div>
+            <div><strong>Buyer:</strong> {user?.name || user?.email || 'Guest'}</div>
             <div><strong>Delivery:</strong> {delivery?.buyerAddress ? `${delivery.buyerAddress.street || ''}, ${delivery.buyerAddress.city || ''}` : 'Not provided'}</div>
           </div>
 

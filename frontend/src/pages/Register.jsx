@@ -20,12 +20,32 @@ function Register() {
   const handleSubmit = async (e) => {
     e.preventDefault();
 
-    if (!form.name || !form.email || !form.password) {
-      toast.error("Please fill out all fields.");
+    if (!form.name) {
+      toast.error("Your Name is required.");
+      return;
+    }
+    if (!form.email) {
+      toast.error("Email is required.");
+      return;
+    }
+    if (!form.password) {
+      toast.error("Password is required.");
       return;
     }
 
-    
+    const trimmedName = form.name.trim();
+    const nameParts = trimmedName.split(/\s+/);
+    if (nameParts.length < 2) {
+      toast.error("Please enter both your first name and last name.");
+      return;
+    }
+
+    const nameRegex = /^[a-zA-Z\s'-]+$/;
+    if (!nameRegex.test(trimmedName)) {
+      toast.error("Name can only contain letters, spaces, hyphens, and apostrophes.");
+      return;
+    }
+
     const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
     if (!emailRegex.test(form.email)) {
       toast.error("Please enter a valid email address.");
@@ -39,7 +59,7 @@ function Register() {
 
     try {
       const res = await registerUser({
-        username: form.name,
+        name: trimmedName,
         email: form.email,
         password: form.password,
       });
@@ -54,7 +74,7 @@ function Register() {
   };
 
   return (
-    <div className="flex p-10 items-center justify-center">   
+    <div className="flex p-10 items-center justify-center">
       <div className="w-1/2">
         <img src={registerImg} alt="Register Banner" className="rounded-lg" />
       </div>
@@ -65,7 +85,7 @@ function Register() {
           <input
             type="text"
             name="name"
-            placeholder="Name"
+            placeholder="First and Last Name"
             value={form.name}
             onChange={handleChange}
             className="w-full p-3 border rounded mb-4"

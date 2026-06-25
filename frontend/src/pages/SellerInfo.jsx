@@ -85,7 +85,7 @@ export default function SellerInfo() {
     ? (ratings.reduce((s, r) => s + (Number(r.rating) || 0), 0) / ratings.length)
     : 0;
 
-  const sellerName = sellerInfo?.username || sellerInfo?.name || (sellerInfo?.email ? sellerInfo.email.split("@")[0] : "Unknown Seller");
+  const sellerName = sellerInfo?.name || (sellerInfo?.email ? sellerInfo.email.split("@")[0] : "Unknown Seller");
 
   return (
     <div className="p-6 bg-[#f7f5f0] min-h-screen">
@@ -135,7 +135,7 @@ export default function SellerInfo() {
                   <div className="flex items-start justify-between mb-2">
                     <div>
                       <div className="font-semibold">
-                        {r.raterId?.username || r.raterId?.name || (r.raterId?.email || "").split("@")[0] || "Anonymous"}
+                        {r.raterId?.name || (r.raterId?.email || "").split("@")[0] || "Anonymous"}
                       </div>
                       <div className="text-sm text-gray-500">
                         {new Date(r.createdAt).toLocaleDateString()}

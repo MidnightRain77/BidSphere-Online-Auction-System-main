@@ -28,7 +28,7 @@ export default function DashboardSidebar({ role = "seller", active = "dashboard"
     storedUser = null;
   }
 
-  const displayName = (user && (user.name || user.username || user.email)) || (storedUser && (storedUser.name || storedUser.username || storedUser.email)) || "User";
+  const displayName = (user && (user.name || user.email)) || (storedUser && (storedUser.name || storedUser.email)) || "User";
   const initials = String(displayName)
     .split(" ")
     .map((s) => s[0] || "")
