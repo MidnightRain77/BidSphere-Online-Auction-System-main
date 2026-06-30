@@ -19,13 +19,13 @@ services:
       - key: JWT_EXPIRY
         value: 7d
       - key: ADMIN_EMAIL
-        value: parvaraval27@gmail.com
+        sync: false
       - key: ADMIN_PASSWORD
-        value: Admin@123
+        sync: false
       - key: ADMIN_IP
-        value: ::1
+        value: "*"
       - key: SMTP_USER
-        value: bidsphere.auction@gmail.com
+        sync: false
       - key: SMTP_HOST
         value: smtp.gmail.com
       - key: SMTP_PORT
@@ -33,21 +33,21 @@ services:
       - key: SMTP_PASS
         sync: false
       - key: SHIPROCKET_EMAIL
-        value: thebumfuzzleshow@gmail.com
+        sync: false
       - key: SHIPROCKET_PASSWORD
         sync: false
       - key: CLIENT_ORIGIN
         value: https://bid-sphere-online-auction-system.vercel.app
       - key: EMAIL_USER
-        value: bidsphere.auction@gmail.com
+        sync: false
       - key: EMAIL_PASS
         sync: false
       - key: CLOUDINARY_URL
         sync: false
       - key: CLOUDINARY_CLOUD_NAME
-        value: df0spusrz
+        sync: false
       - key: CLOUDINARY_API_KEY
-        value: 226583656819542
+        sync: false
       - key: CLOUDINARY_API_SECRET
         sync: false
       - key: NODE_VERSION
