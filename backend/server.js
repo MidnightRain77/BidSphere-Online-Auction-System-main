@@ -4,6 +4,7 @@ import cors from "cors";
 import dotenv from "dotenv";
 dotenv.config();
 import path from "path";
+import mongoose from "mongoose";
 
 // express app
 const app = express();
@@ -69,6 +70,16 @@ app.use(cookieParser());
 app.use('/uploads', express.static(path.join(process.cwd(), 'uploads')));
 import { restrictToLoggedinUserOnly, checkAuth } from "./middleware/authMiddleware.js"; 
 import { restrictAdminIP } from "./middleware/adminMiddleware.js";
+
+// deep health check for Render — verifies DB is connected before returning OK
+app.get("/health", async (req, res) => {
+  try {
+    await mongoose.connection.db.admin().ping();
+    res.status(200).json({ status: "OK", database: "connected" });
+  } catch (error) {
+    res.status(503).json({ status: "ERROR", database: "disconnected" });
+  }
+});
 
 // home page
 app.get ("/", restrictToLoggedinUserOnly, (req, res) => res.send("BidSphere Online Auction System") );
